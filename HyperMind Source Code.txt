@@ -1,0 +1,70 @@
+import java.util.*;
+public class Main
+{
+    public static void main(String[] args)
+    {
+        System.out.println("欢迎使用HyperMind时间控制器/ Welcome to use HyperMind Time Counting Software");
+        System.out.println("由Java (JDK 17)编写/Powered by Java (JDK 17)");
+        System.out.println("本软件遵守Apache2.0协议开放源代码，在遵守该协议的基础上，您可以自由传播和修改。");
+        System.out.println("This software complies with the Apache Version 2.0 protocol, which means it is open sourced. On the basis of complying with this protocol, you can freely propagate and modify it.");
+        System.out.println("");
+        Scanner min = new Scanner(System.in);
+                System.out.println("请输入音乐的时间（分）/ Confirm the music's length (min):");
+        int myMin = min.nextInt();
+        Scanner sec = new Scanner(System.in);
+                System.out.println("请输入音乐时间（秒）/ Confirm the music's length (sec):");
+        int mySec = sec.nextInt();
+        Scanner numOfQue = new Scanner(System.in);
+                System.out.println("请输入题目数量/ Confirm the number of questions:");
+        int myNum = numOfQue.nextInt();
+        Time a = new Time(myMin, mySec, myNum);
+        a.autoCorrect();
+        int totalTime = 0;
+        int myTime = 0;
+        for (int i = 0; i < a.numOfQue; i++)
+        {
+            Scanner input = new Scanner((System.in));
+                System.out.println("按1开始/继续游戏：");
+            int myInput = input.nextInt();
+            if (myInput == 1)
+            {
+                myTime = (int) (Math.random()*(a.min*60 + a.sec + 1));
+                while (myTime == 0 || myTime > (a.min*60 + a.sec)/a.numOfQue || myTime < (a.min*60 + a.sec)/(a.numOfQue+1))
+                {
+                    myTime = (int) (Math.random()*(a.min*60 + a.sec + 1));
+                }
+            }
+            totalTime += myTime;
+            Time sample = new Time(0,totalTime,0);
+            sample.autoCorrect();
+            System.out.println(sample);
+        }
+    }
+
+}
+
+class Time
+{
+    protected int min = 0;
+    protected int sec = 0;
+    protected int numOfQue = 0;
+    public Time(int myMin, int mySec, int myNum)
+    {
+        min = myMin;
+        sec = mySec;
+        numOfQue = myNum;
+    }
+    public void autoCorrect()
+    {
+        if (sec >= 60)
+        {
+            min = min + sec/60;
+            sec = sec % 60;
+        }
+    }
+
+    public String toString()
+    {
+        return (STR."暂停的时间为：\{min}分，\{sec}秒；");
+    }
+}
